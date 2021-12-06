@@ -4,10 +4,13 @@
       <SearchForm />
       <button class="app__btn" type="button" @click="handleOpenPopup">create</button>
     </div>
-    <div class="app__events-container">
-      <EventsList
-        :events="events"
-      />
+    <div class="app__events">
+      <div class="app__events-container" >
+        <EventsList
+          :eventDates="eventDates"
+          :events="events"
+        />
+      </div>
       <EventFullInfo />
     </div>
     <PopupWithForm @add-event="addEvent" v-if="isOpened" :handleClosePopup="handleClosePopup"/>
@@ -30,7 +33,7 @@ export default {
         {
           id: 1,
           title: 'Monthly catch-up',
-          category: '',
+          category: 'light',
           description: 'https://zoom.us/i/1983475281',
           dateStart: {
             date: '12/27/2021',
@@ -47,7 +50,7 @@ export default {
         {
           id: 2,
           title: 'Quarterly review',
-          category: '',
+          category: 'hard',
           description: '',
           dateStart: {
             date: '12/15/2021',
@@ -64,7 +67,7 @@ export default {
         {
           id: 3,
           title: 'Presentation of new products and cost structure',
-          category: '',
+          category: 'medium',
           description: 'https://zoom.us/i/1983475281',
           dateStart: {
             date: '12/7/2021',
@@ -79,8 +82,20 @@ export default {
           participants: ''
         }
       ],
-      isOpened: false
+      isOpened: false,
+      eventDates: []
     }
+  },
+  mounted () {
+    const arr = Array.from(new Set(this.events.map((event) => {
+      return event.dateStart.date
+    })))
+
+    this.eventDates = arr.sort(function (a, b) {
+      a = new Date(a)
+      b = new Date(b)
+      return a > b ? 1 : a < b ? -1 : 0
+    })
   },
   components: {
     EventsList,
@@ -97,7 +112,6 @@ export default {
     },
     addEvent (event) {
       this.events.push(event)
-      console.log(this.events)
       this.handleClosePopup()
     }
   }
@@ -143,7 +157,7 @@ export default {
   text-transform: uppercase;
 }
 
-.app__events-container {
+.app__events {
   max-width: 1068px;
   height: 64%;
   margin-top: 41px;
@@ -151,6 +165,13 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.app__events-container {
+  margin: 0;
+  padding: 20px 21px 19px 28px;
+  background: #FFFFFF;
+  overflow-y: scroll;
 }
 
 #nav {

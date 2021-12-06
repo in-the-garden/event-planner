@@ -1,8 +1,8 @@
 <template>
-  <div class="events">
-    <ul class="events__container">
+  <div class="events" v-for="(eventDate, idx) in eventDates" :key="idx + 1">
+    <ul class="events__container"> {{eventDate}}
       <EventItem
-        v-for="(event, idx) in events"
+        v-for="(event, idx) in events.filter((event) => {if (event.dateStart.date === eventDate) { return event}})"
         :key="idx + 1"
         :event="event"
       />
@@ -13,7 +13,7 @@
 <script>
 import EventItem from '@/components/EventItem'
 export default {
-  props: ['events'],
+  props: ['eventDates', 'events'],
   components: {
     EventItem
   }
@@ -22,17 +22,21 @@ export default {
 
 <style lang="less">
 .events {
-  margin: 0;
-  padding: 28px 21px 19px 28px;
-  background: #FFFFFF;
+
 }
 
 .events__container {
-  margin: 0;
+  margin: 8px 0 0;
   padding: 0;
   width: 290px;
   display: flex;
   flex-direction: column;
+  font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: #868E96;
+
 }
 
 .event {

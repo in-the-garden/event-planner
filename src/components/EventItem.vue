@@ -1,6 +1,6 @@
 <template>
    <li class="event">
-     <div class="event__category"></div>
+     <div :class="['event__category', `${event.category}`]"></div>
      <article class="event__info">
       <p class="event__time">{{event.dateStart.time}} - {{event.dateEnd.time}}</p>
       <h2 class="event__title">{{event.title}}</h2>
@@ -13,12 +13,6 @@
 export default {
   props: {
     event: Object
-  },
-  filters: {
-    setTime (value) {
-      const arr = value.split('T')
-      return arr[1]
-    }
   }
 }
 </script>
@@ -29,13 +23,26 @@ export default {
   list-style: none;
   display: flex;
   flex-direction: row;
+  padding: 3px 0;
 }
 .event__category {
   width: 12px;
   height: 12px;
   border-radius: 100%;
+}
+
+.light {
   background: #3B82F6;
 }
+
+.medium {
+  background: #FBBF24;
+}
+
+.hard {
+  background: #EC4899;
+}
+
 .event__info {
   margin-left: 8px;
   display: flex;

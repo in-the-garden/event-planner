@@ -10,9 +10,9 @@
             <label>Category</label>
             <select class="popup__category" v-model="event.category" required>
               <option disabled value="">Category</option>
-              <option value="Light">Light</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
+              <option value="light">Light</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
             </select>
             <label>Description</label>
             <textarea class="popup__description" rows="5" placeholder="Description" v-model="event.description" required/>
