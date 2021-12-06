@@ -19,29 +19,34 @@ export default {
 }
 </script>
 
-<style>
-  .events {
-    margin: 0;
-    padding: 28px 21px 19px 28px;
-    width: 340px;
-    background: #FFFFFF;
-  }
-  .events__container {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .event {
-    list-style: none;
-  }
-  .event__time {
-    margin: 0;
-  }
-  .event__title {
-    margin: 0;
-  }
-  .event__description {
-    margin: 0;
-  }
+<style lang="less">
+.events {
+  margin: 0;
+  padding: 28px 21px 19px 28px;
+  background: #FFFFFF;
+}
+
+.events__container {
+  margin: 0;
+  padding: 0;
+  width: 290px;
+  display: flex;
+  flex-direction: column;
+}
+
+.event {
+  list-style: none;
+}
+
+.event__time {
+  margin: 0;
+}
+
+.event__title {
+  margin: 0;
+}
+
+.event__description {
+  margin: 0;
+}
 </style>

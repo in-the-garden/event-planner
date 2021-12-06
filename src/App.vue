@@ -1,11 +1,16 @@
 <template>
   <div id="app">
+    <div class="app__forms-container">
+      <SearchForm />
+      <button class="app__btn" type="button">create</button>
+    </div>
     <div class="app__events-container">
       <EventsList
         v-bind:events="events"
       />
       <EventFullInfo />
     </div>
+    <PopupWithForm />
     <!--<router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>-->
   </div>
@@ -15,6 +20,8 @@
 <script>
 import EventsList from '@/components/EventsList'
 import EventFullInfo from '@/components/EventFullInfo'
+import SearchForm from '@/components/SearchForm'
+import PopupWithForm from '@/components/PopupWithForm'
 export default {
   name: 'app',
   data () {
@@ -28,7 +35,9 @@ export default {
   },
   components: {
     EventsList,
-    EventFullInfo
+    EventFullInfo,
+    SearchForm,
+    PopupWithForm
   }
 }
 
@@ -36,10 +45,12 @@ export default {
 
 <style lang="less">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;
+  font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  position: relative;
   color: #2c3e50;
   background: #E5E5E5;
   height: 100vh;
@@ -47,10 +58,34 @@ export default {
   flex-direction: column;
 }
 
-.app__events-container {
+.app__forms-container {
   max-width: 1068px;
   margin-top: 41px;
-  align-self: center;
+  padding-left: 207px;
+  display: flex;
+  flex-direction: row;
+}
+
+.app__btn {
+  padding: 14px 100px;
+  margin-left: auto;
+  border: none;
+  outline: none;
+  justify-self: flex-end;
+  background: #3B82F6;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+}
+
+.app__events-container {
+  max-width: 1068px;
+  height: 64%;
+  margin-top: 41px;
+  padding-left: 207px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
