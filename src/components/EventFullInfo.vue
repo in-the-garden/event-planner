@@ -1,10 +1,10 @@
 <template>
   <div class="info">
-    <h2 class="info__title">Quarterly review</h2>
+    <h2 class="info__title">{{selectedEvent[0].title}}</h2>
     <div class="info__container">
-      <p class="info__date">TODAY 2/27/2021</p>
-      <div class="info__category"></div>
-      <p class="info_time">8:30 - 9:00 AM</p>
+      <p class="info__date">{{selectedEvent[0].dateStart.date}}</p>
+      <div :class="['info__category', `${selectedEvent[0].category}`]"></div>
+      <p class="info_time">{{selectedEvent[0].dateStart.time}} - {{selectedEvent[0].dateEnd.time}}</p>
     </div>
     <div class="info__participants">
       <div class="info__participant">
@@ -13,12 +13,16 @@
       <div class="info__participant">
         <img class="info__avatar" src="../images/avatar.jpg" />Sally D.</div>
     </div>
-    <p class="info__description">Your application is rejected!
-      You submitted on your Letter of Authorization (LOA) is different from what is on file with your carrier in their Customer Service Record (CSR). A CSR is a copy of how your telephone records appear in the telephone company’s database.
-      https://zoom.us/i/1983475281
+    <p class="info__description">{{selectedEvent[0].description}}
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['selectedEvent']
+}
+</script>
 
 <style lang="less">
 .info {
@@ -58,6 +62,18 @@
   height: 12px;
   border-radius: 100%;
   background: #3B82F6;
+}
+
+.light {
+  background: #3B82F6;
+}
+
+.medium {
+  background: #FBBF24;
+}
+
+.hard {
+  background: #EC4899;
 }
 
 .info_time {

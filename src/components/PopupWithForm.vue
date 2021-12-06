@@ -87,8 +87,6 @@ export default {
         participants: this.event.participants
       }
 
-      console.log(newEvent)
-
       this.$emit('add-event', newEvent)
     }
   }

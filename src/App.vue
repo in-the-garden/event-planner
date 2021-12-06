@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="app_title">Events</h1>
     <div class="app__forms-container">
       <SearchForm />
       <button class="app__btn" type="button" @click="handleOpenPopup">create</button>
@@ -9,13 +10,16 @@
         <EventsList
           :eventDates="eventDates"
           :events="events"
+          @show-event="showEvent"
         />
       </div>
-      <EventFullInfo />
+      <EventFullInfo :selectedEvent="selectedEvent"/>
     </div>
-    <PopupWithForm @add-event="addEvent" v-if="isOpened" :handleClosePopup="handleClosePopup"/>
-    <!--<router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>-->
+    <PopupWithForm
+      @add-event="addEvent"
+      v-if="isOpened"
+      :handleClosePopup="handleClosePopup"
+    />
   </div>
   <!--<router-view/>-->
 </template>
@@ -83,7 +87,24 @@ export default {
         }
       ],
       isOpened: false,
-      eventDates: []
+      eventDates: [],
+      selectedEvent: [{
+        id: 3,
+        title: 'Presentation of new products and cost structure',
+        category: 'medium',
+        description: 'https://zoom.us/i/1983475281',
+        dateStart: {
+          date: '12/7/2021',
+          time: '8:30'
+        },
+        dateEnd: {
+          date: '12/7/2021',
+          time: '9:00'
+        },
+        checked: false,
+        repeat: '',
+        participants: ''
+      }]
     }
   },
   mounted () {
@@ -113,6 +134,13 @@ export default {
     addEvent (event) {
       this.events.push(event)
       this.handleClosePopup()
+    },
+    showEvent (element) {
+      this.selectedEvent = this.events.filter((event) => {
+        if (event.id === Number(element.id)) {
+          return event
+        }
+      })
     }
   }
 }
@@ -132,6 +160,15 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.app_title {
+  margin: 68px 0 0;
+  padding-left: 207px;
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
 }
 
 .app__forms-container {

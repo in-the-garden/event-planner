@@ -1,5 +1,5 @@
 <template>
-   <li class="event">
+   <li :class="['event', {'event_active': activeElement}]" :id="[`${event.id}`]" >
      <div :class="['event__category', `${event.category}`]"></div>
      <article class="event__info">
       <p class="event__time">{{event.dateStart.time}} - {{event.dateEnd.time}}</p>
@@ -12,7 +12,8 @@
 <script>
 export default {
   props: {
-    event: Object
+    event: Object,
+    activeElement: Boolean
   }
 }
 </script>
@@ -23,7 +24,13 @@ export default {
   list-style: none;
   display: flex;
   flex-direction: row;
-  padding: 3px 0;
+  padding: 3px 0 3px 5px;
+}
+
+.event_active {
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px 2px 2px 8px;
+  border-right: 4px solid #3B82F6;
 }
 .event__category {
   width: 12px;

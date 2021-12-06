@@ -5,6 +5,8 @@
         v-for="(event, idx) in events.filter((event) => {if (event.dateStart.date === eventDate) { return event}})"
         :key="idx + 1"
         :event="event"
+        :activeElement="Number(activeElement) === Number(event.id)"
+        @click="onClick"
       />
     </ul>
   </div>
@@ -14,8 +16,23 @@
 import EventItem from '@/components/EventItem'
 export default {
   props: ['eventDates', 'events'],
+  data () {
+    return {
+      activeElement: 3
+    }
+  },
   components: {
     EventItem
+  },
+  methods: {
+    onClick (evt) {
+      if (evt.target.closest('.event')) {
+        const el = evt.target.closest('.event')
+        this.activeElement = el.id
+
+        this.$emit('show-event', el)
+      }
+    }
   }
 }
 </script>
@@ -28,7 +45,7 @@ export default {
 .events__container {
   margin: 8px 0 0;
   padding: 0;
-  width: 290px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif;
@@ -36,6 +53,7 @@ export default {
   font-size: 13px;
   line-height: 20px;
   color: #868E96;
+  box-sizing: border-box;
 
 }
 
