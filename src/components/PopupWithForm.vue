@@ -6,31 +6,39 @@
         <tr>
           <td>
             <label>Title</label>
-            <input class="popup__title" placeholder="Title"/>
+            <input class="popup__title" type="text" placeholder="Title" v-model="event.title" required/>
             <label>Category</label>
-            <select class="popup__category" id="category" name="category">
-              <option value="">Category</option>
-              <option value="light">Light</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+            <select class="popup__category" v-model="event.category" required>
+              <option disabled value="">Category</option>
+              <option value="Light">Light</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
             </select>
             <label>Description</label>
-            <textarea class="popup__description" rows="5" placeholder="Description"/>
+            <textarea class="popup__description" rows="5" placeholder="Description" v-model="event.description" required/>
           </td>
           <td>
             <label>Date</label>
-            <input class="popup__date" type="date" placeholder="DataTime"/>
+            <input class="popup__date_start" type="datetime-local" placeholder="DataTime" v-model="event.dateStart" v-on:change="changeDateType(event.dateStart)" onrequired/>
+            <input class="popup__date_end" type="datetime-local" placeholder="DataTime" v-if="event.dateStart" v-model="event.dateEnd" required/>
             <div class="popup__checkbox">
-              <input type="checkbox" name="repeat" id="repeat" value="repeat">
+              <input type="checkbox" id="repeat" v-model="event.checked">
               <label for="repeat">Repeat</label>
             </div>
+            <select class="popup__repeat-category" v-if="event.checked" v-model="event.repeat" required>
+              <option disabled value="">Choose one option</option>
+              <option value="Every day">Every day</option>
+              <option value="Every week">Every week</option>
+              <option value="Every month">Every month</option>
+              <option value="Every year">Every year</option>
+            </select>
             <label>Participants</label>
-            <input class="popup__participants" placeholder="Find user..."/>
+            <input class="popup__participants" type="search" v-model="event.participants" placeholder="Find user..."/>
           </td>
         </tr>
       </table>
       <button class="popup__btn" type="submit">create</button>
-      <button class="popup__btn-close" type="button" @click="handleClosePopup"></button>
+      <button class="popup__btn-close" type="button" @click="handleClosePopup" @keyup.esc="handleClosePopup"></button>
     </form>
   </div>
 </template>
@@ -43,12 +51,45 @@ export default {
   ],
   data () {
     return {
-
+      event: {
+        title: '',
+        category: '',
+        description: '',
+        dateStart: '',
+        dateEnd: '',
+        checked: false,
+        repeat: '',
+        participants: ''
+      }
     }
   },
   methods: {
-    onSubmit (evt) {
-      console.log(evt)
+    changeDateType (value) {
+      const parsed = new Date(value)
+      const ten = function (x) { return x < 10 ? '0' + x : x }
+      const date = (parsed.getMonth() + 1) + '/' + parsed.getDate() + '/' + parsed.getFullYear()
+      const time = ten(parsed.getHours()) + ':' + ten(parsed.getMinutes())
+      return {
+        date: date,
+        time: time
+      }
+    },
+    onSubmit () {
+      const newEvent = {
+        id: Date.now(),
+        title: this.event.title,
+        category: this.event.category,
+        description: this.event.description,
+        dateStart: this.changeDateType(this.event.dateStart),
+        dateEnd: this.changeDateType(this.event.dateEnd),
+        checked: this.event.checked,
+        repeat: this.event.repeat,
+        participants: this.event.participants
+      }
+
+      console.log(newEvent)
+
+      this.$emit('add-event', newEvent)
     }
   }
 }

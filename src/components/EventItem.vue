@@ -2,7 +2,7 @@
    <li class="event">
      <div class="event__category"></div>
      <article class="event__info">
-      <p class="event__time">{{event.dateStart}}</p>
+      <p class="event__time">{{event.dateStart.time}} - {{event.dateEnd.time}}</p>
       <h2 class="event__title">{{event.title}}</h2>
       <p class="event__description">{{event.description}}</p>
      </article>
@@ -13,6 +13,12 @@
 export default {
   props: {
     event: Object
+  },
+  filters: {
+    setTime (value) {
+      const arr = value.split('T')
+      return arr[1]
+    }
   }
 }
 </script>

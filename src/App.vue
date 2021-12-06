@@ -10,7 +10,7 @@
       />
       <EventFullInfo />
     </div>
-    <PopupWithForm v-if="isOpened" :handleClosePopup="handleClosePopup"/>
+    <PopupWithForm @add-event="addEvent" v-if="isOpened" :handleClosePopup="handleClosePopup"/>
     <!--<router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>-->
   </div>
@@ -27,9 +27,57 @@ export default {
   data () {
     return {
       events: [
-        { id: 1, title: 'Monthly catch-up', category: {}, description: 'https://zoom.us/i/1983475281', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' },
-        { id: 2, title: 'Quarterly review', category: {}, description: '', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' },
-        { id: 3, title: 'Presentation of new products and cost structure', category: {}, description: 'https://zoom.us/i/1983475281', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' }
+        {
+          id: 1,
+          title: 'Monthly catch-up',
+          category: '',
+          description: 'https://zoom.us/i/1983475281',
+          dateStart: {
+            date: '12/27/2021',
+            time: '8:30'
+          },
+          dateEnd: {
+            date: '12/27/2021',
+            time: '9:00'
+          },
+          checked: false,
+          repeat: '',
+          participants: ''
+        },
+        {
+          id: 2,
+          title: 'Quarterly review',
+          category: '',
+          description: '',
+          dateStart: {
+            date: '12/15/2021',
+            time: '8:30'
+          },
+          dateEnd: {
+            date: '12/15/2021',
+            time: '9:00'
+          },
+          checked: false,
+          repeat: '',
+          participants: ''
+        },
+        {
+          id: 3,
+          title: 'Presentation of new products and cost structure',
+          category: '',
+          description: 'https://zoom.us/i/1983475281',
+          dateStart: {
+            date: '12/7/2021',
+            time: '8:30'
+          },
+          dateEnd: {
+            date: '12/7/2021',
+            time: '9:00'
+          },
+          checked: false,
+          repeat: '',
+          participants: ''
+        }
       ],
       isOpened: false
     }
@@ -46,6 +94,11 @@ export default {
     },
     handleClosePopup () {
       this.isOpened = !this.isOpened
+    },
+    addEvent (event) {
+      this.events.push(event)
+      console.log(this.events)
+      this.handleClosePopup()
     }
   }
 }

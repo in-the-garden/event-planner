@@ -2,8 +2,8 @@
   <div class="events">
     <ul class="events__container">
       <EventItem
-        v-for="event in events"
-        :key="event.id"
+        v-for="(event, idx) in events"
+        :key="idx + 1"
         :event="event"
       />
     </ul>
