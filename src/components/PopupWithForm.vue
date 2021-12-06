@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <form class="popup__form">
+    <form class="popup__form" @submit.prevent="onSubmit">
       <h2 class="popup__name">Create event</h2>
       <table>
         <tr>
@@ -14,7 +14,6 @@
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </select>
-            <input class="popup__category" placeholder="Category"/>
             <label>Description</label>
             <textarea class="popup__description" rows="5" placeholder="Description"/>
           </td>
@@ -26,15 +25,34 @@
               <label for="repeat">Repeat</label>
             </div>
             <label>Participants</label>
-            <input class="popup__participants" placeholder="Participants"/>
+            <input class="popup__participants" placeholder="Find user..."/>
           </td>
         </tr>
       </table>
-      <button class="popup__btn">create</button>
+      <button class="popup__btn" type="submit">create</button>
+      <button class="popup__btn-close" type="button" @click="handleClosePopup"></button>
     </form>
   </div>
 </template>
 
+<script>
+export default {
+  props: [
+    'isOpened',
+    'handleClosePopup'
+  ],
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    onSubmit (evt) {
+      console.log(evt)
+    }
+  }
+}
+</script>
 <style lang="less">
 @text-color: #333333;
 
@@ -72,7 +90,7 @@ label {
   }
 }
 
-input, textarea {
+input, textarea, select {
   box-sizing: border-box;
   font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;
   margin: 14px 0 0;
@@ -151,5 +169,19 @@ input, textarea {
   border-radius: 4px;
   background: #3B82F6;
   color: #FFFFFF;
+}
+
+.popup__btn-close {
+  border: none;
+  outline: none;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 15px;
+  right: 13px;
+  background-image: url('../images/close-btn.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 </style>

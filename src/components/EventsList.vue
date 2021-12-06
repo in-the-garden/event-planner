@@ -2,8 +2,9 @@
   <div class="events">
     <ul class="events__container">
       <EventItem
-        v-for="event of events" :key="event.id"
-        v-bind:event="event"
+        v-for="event in events"
+        :key="event.id"
+        :event="event"
       />
     </ul>
   </div>

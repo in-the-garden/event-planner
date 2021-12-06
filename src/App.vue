@@ -2,15 +2,15 @@
   <div id="app">
     <div class="app__forms-container">
       <SearchForm />
-      <button class="app__btn" type="button">create</button>
+      <button class="app__btn" type="button" @click="handleOpenPopup">create</button>
     </div>
     <div class="app__events-container">
       <EventsList
-        v-bind:events="events"
+        :events="events"
       />
       <EventFullInfo />
     </div>
-    <PopupWithForm />
+    <PopupWithForm v-if="isOpened" :handleClosePopup="handleClosePopup"/>
     <!--<router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>-->
   </div>
@@ -30,7 +30,8 @@ export default {
         { id: 1, title: 'Monthly catch-up', category: {}, description: 'https://zoom.us/i/1983475281', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' },
         { id: 2, title: 'Quarterly review', category: {}, description: '', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' },
         { id: 3, title: 'Presentation of new products and cost structure', category: {}, description: 'https://zoom.us/i/1983475281', dateStart: '8:30 - 9:00 AM', dateEnd: '8:30 - 9:00 AM', repeat: false, repeatType: {}, participants: '' }
-      ]
+      ],
+      isOpened: false
     }
   },
   components: {
@@ -38,6 +39,14 @@ export default {
     EventFullInfo,
     SearchForm,
     PopupWithForm
+  },
+  methods: {
+    handleOpenPopup () {
+      this.isOpened = !this.isOpened
+    },
+    handleClosePopup () {
+      this.isOpened = !this.isOpened
+    }
   }
 }
 
