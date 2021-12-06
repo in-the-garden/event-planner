@@ -10,6 +10,7 @@
 
 <style lang="less">
 .form {
+  box-sizing: border-box;
   padding: 14px 12px;
   margin: 0;
   max-width: 238px;
@@ -23,7 +24,7 @@
 }
 .form__btn {
   padding: 0;
-  width: 16px;
+  min-width: 16px;
   height: 16px;
   background-color: inherit;
   background-image: url('../images/search-btn.svg');
@@ -33,15 +34,16 @@
 }
 .form__input {
   max-width: 100%;
-  margin-left: 16px;
-  padding: 0 0 2px 0;
+  margin: 0 0 0 16px;
+  padding: 0 0 2px 2px;
   outline: none;
-  border: none;
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
   box-sizing: border-box;
   color: #343A40;
+  border-radius: 0px;
+  border: none;
 
   &:focus {
     border-bottom: 1px solid #3B82F6;

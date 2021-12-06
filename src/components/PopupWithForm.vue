@@ -19,8 +19,8 @@
           </td>
           <td>
             <label>Date</label>
-            <input class="popup__date_start" type="datetime-local" placeholder="DataTime" v-model="event.dateStart" v-on:change="changeDateType(event.dateStart)" onrequired/>
-            <input class="popup__date_end" type="datetime-local" placeholder="DataTime" v-if="event.dateStart" v-model="event.dateEnd" required/>
+            <input class="popup__date popup__date_start" type="datetime-local" placeholder="DataTime" v-model="event.dateStart" v-on:change="changeDateType(event.dateStart)" onrequired/>
+            <input class="popup__date popup__date_end" type="datetime-local" placeholder="DataTime" v-if="event.dateStart" v-model="event.dateEnd" required/>
             <div class="popup__checkbox">
               <input type="checkbox" id="repeat" v-model="event.checked">
               <label for="repeat">Repeat</label>
@@ -179,6 +179,11 @@ input, textarea, select {
   position: absolute;
   top: 20px;
   left: 25px;
+}
+
+.popup__date {
+  box-sizing: border-box;
+  height: 46px;
 }
 
 .popup__checkbox {

@@ -143,6 +143,7 @@ export default {
 }
 
 .app__btn {
+  box-sizing: border-box;
   padding: 14px 100px;
   margin-left: auto;
   border: none;
